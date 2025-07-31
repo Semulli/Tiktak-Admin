@@ -19,6 +19,7 @@ const statusOptions: OrderStatus[] = [
 
 const statusLabels: Record<OrderStatus, string> = {
   PENDING: "Gözləmədə",
+  READY: "hazirdir",
   CONFIRMED: "Təsdiqləndi",
   PREPARING: "Hazırlanır",
   DELIVERED: "Çatdırıldı",

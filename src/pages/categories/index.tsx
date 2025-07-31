@@ -98,7 +98,6 @@ function Categories() {
       <Table<Category>
         title="Kateqoriyalar"
         data={categories}
-        ModalComponent={CategoriesModal}
         onCreate={handleCreate}
         isLoading={loading}
         columns={[
@@ -115,6 +114,9 @@ function Categories() {
             </button>
             <button onClick={() => openModal(Number(row.id))}>sil</button>
           </>
+        )}
+          ModalComponent={(props) => (
+          <CategoriesModal {...props} onSubmit={fetchDatas} />
         )}
       />
 

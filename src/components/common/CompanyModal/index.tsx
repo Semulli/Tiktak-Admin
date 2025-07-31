@@ -11,13 +11,12 @@ interface CompanyModalProps {
   initialData?: Company | null;
 }
 
-
 const CompanyModal = ({
   onClose,
   onSubmit = async () => {},
   initialData = null,
 }: CompanyModalProps) => {
-  const { newImg, setNewImg } = useSidebarStore();
+  const { newImg } = useSidebarStore();
 
   const [company, setCompany] = useState<Company>({
     id: initialData?.id,
@@ -80,8 +79,10 @@ const CompanyModal = ({
     try {
       console.log("Göndərilən kampaniya:", company);
       // Submitə göndər
-      await onSubmit?.(company as any); 
-      toast.success(initialData ? "Kampaniya yeniləndi!" : "Kampaniya yaradıldı!");
+      await onSubmit?.(company);
+      toast.success(
+        initialData ? "Kampaniya yeniləndi!" : "Kampaniya yaradıldı!"
+      );
       onClose();
     } catch (error) {
       toast.error("Xəta baş verdi!");

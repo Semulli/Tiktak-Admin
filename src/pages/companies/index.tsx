@@ -102,7 +102,6 @@ function Companies() {
       <Table<Company>
         title="Kampaniyalar"
         data={companies}
-        ModalComponent={CompanyModal}
         onCreate={handleCreate}
         isLoading={loading}
         columns={[
@@ -127,6 +126,10 @@ function Companies() {
               sil
             </button>
           </>
+          
+        )}
+        ModalComponent={(props) => (
+          <CompanyModal {...props} onSubmit={fetchDatas} />
         )}
       />
 

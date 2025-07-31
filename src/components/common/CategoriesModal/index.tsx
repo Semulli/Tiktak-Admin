@@ -16,7 +16,7 @@ const CategoriesModal = ({
   onSubmit,
   initialData = null,
 }: CategoriesModalProps) => {
-  const { newImg, setNewImg } = useSidebarStore();
+  const { newImg } = useSidebarStore();
 
   const [category, setCategory] = useState<Category>({
     id: initialData?.id || undefined,
@@ -77,7 +77,9 @@ const CategoriesModal = ({
 
     try {
       await onSubmit(category);
-      toast.success(initialData ? "Kateqoriya yeniləndi!" : "Kateqoriya yaradıldı!");
+      toast.success(
+        initialData ? "Kateqoriya yeniləndi!" : "Kateqoriya yaradıldı!"
+      );
       onClose();
     } catch (error) {
       toast.error("Xəta baş verdi!");
