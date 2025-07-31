@@ -33,9 +33,10 @@ function Companies() {
     try {
       setLoading(true);
       const data = await fetchCompanies();
-      setCompanies(data.data);
+      console.log("Fetched companies:", data); // Debug log
+      setCompanies(data.data || data); // Handle both data.data and direct data
     } catch (error) {
-      console.log(error);
+      console.log("Fetch error:", error);
       toast.error("Kampaniyalar yüklənərkən xəta baş verdi.");
     } finally {
       setLoading(false);
@@ -52,12 +53,28 @@ function Companies() {
 
   const handleCreate = async (newData: Company) => {
     try {
+      console.log("Creating company with data:", newData); // Debug log
       const created = await createCompanies(newData);
-      setCompanies((prev) => [created.data, ...prev]);
-      // toast.success("Yeni kampaniya əlavə olundu.");
+      console.log("Created company response:", created); // Debug log
+      
+      // Handle different response structures
+      const newCompany = created.data || created;
+      
+      setCompanies((prev) => {
+        const updated = [newCompany, ...prev];
+        console.log("Updated companies list:", updated); // Debug log
+        return updated;
+      });
+      
+      toast.success("Yeni kampaniya əlavə olundu.");
+      
+      // Refresh data to make sure we have the latest
+      await fetchDatas();
+      
     } catch (err) {
-      console.log(err);
+      console.log("Create error:", err);
       toast.error("Əlavə edilərkən xəta baş verdi.");
+      throw err; // Re-throw error so modal can handle it
     }
   };
 
@@ -70,10 +87,12 @@ function Companies() {
       const updatedData = await updateCompany(updated.id as number, updated);
       setCompanies((prev) =>
         prev.map((el) =>
-          el.id === updatedData.data.id ? updatedData.data : el
+          el.id === (updatedData.data?.id || updatedData.id) 
+            ? (updatedData.data || updatedData) 
+            : el
         )
       );
-      toast.success("Kampaniya yeniləndi.");
+      // toast.success("Kampaniya yeniləndi.");
     } catch (err) {
       console.log(err);
       toast.error("Yenilənmə zamanı xəta baş verdi.");
@@ -97,6 +116,9 @@ function Companies() {
     }
   };
 
+  // Debug: Log current companies state
+  console.log("Current companies state:", companies);
+
   return (
     <Layout>
       <Table<Company>
@@ -114,22 +136,23 @@ function Companies() {
         actions={(row) => (
           <>
             <button
-              className=" mr-3"
+              className="mr-3"
               onClick={() => handleEditClick(row)}
             >
               düzəlt
             </button>
             <button
-             
               onClick={() => openModal(Number(row.id))}
             >
               sil
             </button>
           </>
-          
         )}
         ModalComponent={(props) => (
-          <CompanyModal {...props} onSubmit={fetchDatas} />
+          <CompanyModal 
+            {...props} 
+            onSubmit={handleCreate}
+          />
         )}
       />
 

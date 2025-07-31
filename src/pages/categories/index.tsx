@@ -70,7 +70,7 @@ function Categories() {
       setCategories((prev) =>
         prev.map((el) => (el.id === updated.data.id ? updated.data : el))
       );
-      toast.success("Kateqoriya yeniləndi.");
+      // toast.success("Kateqoriya yeniləndi.");
     } catch (err) {
       console.log(err);
       toast.error("Yenilənmə zamanı xəta baş verdi.");
@@ -115,8 +115,8 @@ function Categories() {
             <button onClick={() => openModal(Number(row.id))}>sil</button>
           </>
         )}
-          ModalComponent={(props) => (
-          <CategoriesModal {...props} onSubmit={fetchDatas} />
+        ModalComponent={(props) => (
+          <CategoriesModal {...props} onSubmit={handleCreate} />
         )}
       />
 
