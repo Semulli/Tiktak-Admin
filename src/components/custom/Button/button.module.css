@@ -1,0 +1,41 @@
+.button_type1 {
+  padding: 17px 20px;
+  color: #fff;
+  background-color: #92d871;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button_type1:hover {
+  background-color: #77a85f;
+  transition: background-color 0.3s ease;
+}
+
+.button_type2 {
+  padding: 11px 15px;
+  color: #fff;
+  background-color: #92d871;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+.button_type2:hover {
+  background-color: #77a85f;
+  transition: background-color 0.3s ease;
+}
+
+.button_type3 {
+  text-align: center;
+  padding: 17px;
+  border: 1px solid #9f9f9f59;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.button_type3:hover {
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease;
+}

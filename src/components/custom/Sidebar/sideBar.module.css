@@ -1,0 +1,26 @@
+/* Sidebar.module.css */
+
+:global(.ant-menu-item-selected) {
+  background-color: transparent !important;
+}
+
+:global(.ant-menu-item-selected a),
+:global(.ant-menu-item-selected span) {
+  color: #92d871 !important;
+  font-weight: 600;
+  margin-left: 6px;
+}
+:global(.ant-menu-item a:hover),
+:global(.ant-menu-item span:hover) {
+  color: #92d871;
+}
+
+:global(.ant-menu-item:hover) {
+  background-color: transparent !important;
+}
+
+:global(.ant-menu-item) {
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.2s ease;
+  margin-bottom: 0 !important;
+}
