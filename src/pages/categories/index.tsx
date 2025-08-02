@@ -15,12 +15,14 @@ import type { Category } from "../../interface";
 import toast from "react-hot-toast";
 import CategoriesModal from "../../components/common/CategoriesModal";
 import { useEditModal } from "../../components/common/hooks";
+import { useSearchStore } from "../../store/SearchStore";
 
 function Categories() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const { isOpen, selectedId, openModal, closeModal } = useDeleteModal();
+  const { text: searchText } = useSearchStore();
 
   const {
     isOpen: isEditOpen,
@@ -79,6 +81,15 @@ function Categories() {
     }
   };
 
+
+  const filteredCategories = categories.filter((category) => {
+    const query = searchText.toLowerCase();
+    return (
+      category.name.toLowerCase().includes(query) ||
+      category.description?.toLowerCase().includes(query)
+    );
+  });
+
   const handleDeleteConfirm = async () => {
     if (!selectedId) return;
     try {
@@ -97,7 +108,7 @@ function Categories() {
     <Layout>
       <Table<Category>
         title="Kateqoriyalar"
-        data={categories}
+        data={filteredCategories}
         onCreate={handleCreate}
         isLoading={loading}
         columns={[
