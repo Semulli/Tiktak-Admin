@@ -7,6 +7,7 @@ import ProdutsModal from "../../components/common/ProductsModal";
 import DeleteModal from "../../components/custom/Modal/DeleteModal";
 import { useDeleteModal, useEditModal } from "../../components/common/hooks";
 import toast from "react-hot-toast";
+import { useSearchStore } from "../../store/SearchStore";
 
 interface Column<T> {
   key: keyof T | string;
@@ -17,7 +18,7 @@ interface Column<T> {
 function Products() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
-
+  const { text: searchText } = useSearchStore();
   const { isOpen, selectedId, openModal, closeModal } = useDeleteModal();
   const {
     isOpen: isEditOpen,
@@ -38,6 +39,14 @@ function Products() {
       setLoading(false);
     }
   };
+
+  const filteredProducts = products.filter((product) => {
+    const query = searchText.toLowerCase();
+    return (
+      product.title.toLowerCase().includes(query) ||
+      product.description?.toLowerCase().includes(query)
+    );
+  });
 
   const handleDelete = async () => {
     if (selectedId === null) return;
@@ -93,7 +102,7 @@ function Products() {
     <Layout>
       <Table
         title="Məhsullar"
-        data={products}
+        data={filteredProducts}
         onCreate={getProducts}
         isLoading={loading}
         columns={columns}

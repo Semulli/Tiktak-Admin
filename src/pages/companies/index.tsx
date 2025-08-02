@@ -15,12 +15,14 @@ import CompanyModal from "../../components/common/CompanyModal";
 import type { Company } from "../../interface";
 import toast from "react-hot-toast";
 import { useEditModal } from "../../components/common/hooks";
+import { useSearchStore } from "../../store/SearchStore";
 
 function Companies() {
   const navigate = useNavigate();
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(false);
   const { isOpen, selectedId, openModal, closeModal } = useDeleteModal();
+  const { text: searchText } = useSearchStore();
 
   const {
     isOpen: isEditOpen,
@@ -101,6 +103,14 @@ function Companies() {
     }
   };
 
+  const filteredCompany = companies.filter((company) => {
+    const query = searchText.toLowerCase();
+    return (
+      company.title.toLowerCase().includes(query) ||
+      company.description?.toLowerCase().includes(query)
+    );
+  });
+
   const handleDeleteConfirm = async () => {
     if (!selectedId) return;
 
@@ -123,7 +133,7 @@ function Companies() {
     <Layout>
       <Table<Company>
         title="Kampaniyalar"
-        data={companies}
+        data={filteredCompany}
         onCreate={handleCreate}
         isLoading={loading}
         columns={[

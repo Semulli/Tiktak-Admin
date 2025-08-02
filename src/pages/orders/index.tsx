@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Table from "../../components/custom/Table";
-import { useSearchParams } from "react-router-dom";
+import { useSearchStore } from "../../store/SearchStore";
 import { Layout } from "../../layout";
 import type { Order, OrderStatus } from "../../interface";
 import { getOrders, updateOrderStatus } from "../../services/fetchData"; // update servisini də əlavə et
@@ -8,14 +8,16 @@ import OrderModal from "../../components/custom/Modal/orderDetailModal"; // əla
 import { EyeOutlined } from "@ant-design/icons";
 
 
+
 function Orders() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchParams] = useSearchParams();
+  const { text: searchText } = useSearchStore();
+  
 
-  const searchText = searchParams.get("search")?.toLowerCase() || "";
+ 
 
   const fetchOrders = async () => {
     try {
@@ -37,9 +39,12 @@ function Orders() {
     setIsModalOpen(true);
   };
 
-  const filteredOrders = orders.filter((order) =>
-    order.orderNumber.toLowerCase().includes(searchText)
-  );
+  const filteredOrders = orders.filter((order) => {
+    const query = searchText.toLowerCase();
+    return (
+      order.orderNumber.toLowerCase().includes(query) 
+    );
+  });
 
  const handleStatusChange = async (newStatus: OrderStatus) => {
   if (!selectedOrder) return;
