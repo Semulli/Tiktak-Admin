@@ -12,7 +12,7 @@ const Navbar = () => {
           </h1>
         </div>
 
-        <div className="flex-1 flex justify-end">
+        <div className="flex-1 flex justify-center">
           <input
             type="text"
             placeholder="Axtarış"

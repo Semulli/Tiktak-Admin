@@ -1,4 +1,3 @@
-
 // import Navbar from "./common/components/Navbar";
 import { Route, Routes } from "react-router";
 import AdminLogin from "./pages/login";
@@ -16,10 +15,10 @@ function App() {
       <Toaster position="top-right" />
       <Routes>
         <Route path={ROUTER.LOGIN} element={<AdminLogin />} />
+        <Route path={ROUTER.USERS} element={<Users />} />
         <Route path={ROUTER.COMPANIES} element={<Companies />} />
         <Route path={ROUTER.CATEGORIES} element={<Categories />} />
         <Route path={ROUTER.PRODUCTS} element={<Products />} />
-        <Route path={ROUTER.USERS} element={<Users />} />
         <Route path={ROUTER.ORDERS} element={<Orders />} />
       </Routes>
     </>

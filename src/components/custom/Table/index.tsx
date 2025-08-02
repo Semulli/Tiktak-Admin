@@ -11,6 +11,7 @@ import {
 import type { ColumnsType } from "antd/es/table";
 import Button from "../Button/index";
 import { OrderStatus } from "../../../interface";
+import OrderStatsCards, { type IOrder } from "../../common/orderStatsCards";
 const { Paragraph } = Typography;
 
 interface ModalProps<T> {
@@ -164,11 +165,11 @@ function Table<T extends { id?: number }>({
       <div
         style={{
           padding: 16,
-          // marginRight:10,
+          marginRight: 20,
           background: "#fff",
           borderRadius: 8,
-          width: 950,
-          minHeight: 420,
+          width: 900,
+          height: 445,
           boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
         }}
       >
@@ -176,10 +177,18 @@ function Table<T extends { id?: number }>({
           style={{
             display: "flex",
             justifyContent: "space-between",
-            marginBottom: 16,
+            marginBottom: 20,
+            alignItems: "center",
           }}
         >
-          {title && <h2>{title}</h2>}
+          {title === "Sifarişlər" ? (
+            <div style={{ width: "100%" }}>
+              <h2 style={{ marginBottom: 8 }}>{title}</h2>
+              <OrderStatsCards orders={data as unknown as IOrder[]} />
+            </div>
+          ) : (
+            title && <h2>{title}</h2>
+          )}
 
           {!["Sifarişlər", "İstifadəçilər"].includes(title || "") && (
             <Button
@@ -199,7 +208,7 @@ function Table<T extends { id?: number }>({
               minHeight: 340,
             }}
           >
-            <Spin size="large" />
+            <Spin size="large" className="custom-spin"  />
           </div>
         ) : (
           <>
@@ -243,6 +252,7 @@ function Table<T extends { id?: number }>({
           pageSize={ITEMS_PER_PAGE}
           total={data.length}
           onChange={setCurrentPage}
+          className="custom-pagination"
         />
       </div>
     </>

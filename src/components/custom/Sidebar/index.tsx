@@ -1,7 +1,7 @@
 import { NavLink, useNavigate, useLocation } from "react-router";
 import { Layout, Menu } from "antd";
 import { ROUTER } from "../../../constant/router";
-import styles from "./Sidebar.module.css"; 
+import styles from "./Sidebar.module.css";
 
 const { Sider } = Layout;
 
@@ -16,6 +16,17 @@ const Sidebar = () => {
   };
 
   const menuItems = [
+    {
+      key: ROUTER.ORDERS,
+      label: (
+        <NavLink
+          to={ROUTER.ORDERS}
+          style={{ fontSize: "16px", padding: "12px 0", display: "block" }}
+        >
+          Sifarişlər
+        </NavLink>
+      ),
+    },
     {
       key: ROUTER.COMPANIES,
       label: (
@@ -60,17 +71,7 @@ const Sidebar = () => {
         </NavLink>
       ),
     },
-    {
-      key: ROUTER.ORDERS,
-      label: (
-        <NavLink
-          to={ROUTER.ORDERS}
-          style={{ fontSize: "16px", padding: "12px 0", display: "block" }}
-        >
-          Sifarişlər
-        </NavLink>
-      ),
-    },
+
     {
       key: "logout",
       label: (
@@ -78,7 +79,7 @@ const Sidebar = () => {
           onClick={handleLogout}
           style={{
             fontSize: "16px",
-            padding: "12px 0",
+            paddingTop: "10px",
             display: "block",
             cursor: "pointer",
           }}
@@ -95,8 +96,7 @@ const Sidebar = () => {
       style={{
         background: "#fff",
         height: 445,
-        borderRadius: 10,
-        paddingTop: 20,
+        paddingTop: 25,
       }}
     >
       <Menu
@@ -105,7 +105,7 @@ const Sidebar = () => {
         className={styles.menu}
         style={{
           borderRight: 0,
-          paddingLeft: 10,
+
         }}
         items={menuItems}
       />

@@ -68,8 +68,6 @@ function Products() {
   // Columns tipini ayrıca dəyişən kimi təyin etdik
   const columns: Column<Product>[] = [
     { key: "id", label: "ID" },
-    { key: "title", label: "Başlıq" },
-    { key: "description", label: "Təsvir" },
     {
       key: "img_url",
       label: "Şəkil",
@@ -81,6 +79,9 @@ function Products() {
         />
       ),
     },
+    { key: "title", label: "Başlıq" },
+    { key: "description", label: "Təsvir" },
+
     { key: "price", label: "Qiymət" },
     { key: "type", label: "Ölçü" },
     {
@@ -109,13 +110,13 @@ function Products() {
         actions={(row: Product) => (
           <>
             <button
-              className=" hover:underline mr-3"
+              className="  mr-3"
               onClick={() => openEditModal(row)}
             >
               Düzəlt
             </button>
             <button
-              className=" hover:underline"
+              className=" hover:underline text-red-700"
               onClick={() => openModal(Number(row.id))}
             >
               Sil

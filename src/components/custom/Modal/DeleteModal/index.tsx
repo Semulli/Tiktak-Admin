@@ -38,11 +38,11 @@ const DeleteModal = ({ onClose, onConfirm, isOpen }: DeleteModalProps) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <DialogPanel className="bg-white p-8 rounded-lg shadow-lg w-[90%] max-w-[706px] text-center">
+              <DialogPanel className="bg-white p-8 rounded-lg shadow-lg w-[650px] text-center">
                 <img
                   src={image}
                   alt="delete_img"
-                  className="mx-auto mb-4 w-[323px] h-[323px]"
+                  className="mx-auto mb-4 w-[300px] h-[300px]"
                 />
                 <DialogTitle
                   as="h1"
