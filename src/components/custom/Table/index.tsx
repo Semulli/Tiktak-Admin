@@ -207,7 +207,7 @@ function Table<T extends { id?: number }>({
               columns={antColumns}
               dataSource={paginatedData}
               pagination={false}
-              style={{ minHeight: 290 }}
+              style={{ minHeight: 300 }}
               scroll={{ x: "max-content" }}
               rowKey={(record) => String(record.id) || String(Math.random())}
             />
