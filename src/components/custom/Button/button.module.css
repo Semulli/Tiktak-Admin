@@ -1,5 +1,5 @@
 .button_type1 {
-  padding: 17px 20px;
+  padding: 10px 20px;
   color: #fff;
   background-color: #92d871;
   text-align: center;
@@ -14,7 +14,7 @@
 }
 
 .button_type2 {
-  padding: 11px 15px;
+  padding: 6px 20px;
   color: #fff;
   background-color: #92d871;
   text-align: center;
@@ -29,7 +29,7 @@
 
 .button_type3 {
   text-align: center;
-  padding: 17px;
+  padding: 10px 17px;
   border: 1px solid #9f9f9f59;
   border-radius: 10px;
   cursor: pointer;

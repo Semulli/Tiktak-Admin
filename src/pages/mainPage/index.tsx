@@ -6,7 +6,7 @@ import Sidebar from "../../components/custom/Sidebar";
 
 function MainPage() {
   return (
-    <div style={{ backgroundColor: "#F6F5FB" , height: "100vh" }}>
+    <div style={{ backgroundColor: "#F6F5FB"  }}>
       <Navbar />
       <main
         style={{

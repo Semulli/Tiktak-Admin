@@ -58,21 +58,18 @@ function Companies() {
       console.log("Creating company with data:", newData); // Debug log
       const created = await createCompanies(newData);
       console.log("Created company response:", created); // Debug log
-      
+
       // Handle different response structures
       const newCompany = created.data || created;
-      
+
       setCompanies((prev) => {
         const updated = [newCompany, ...prev];
         console.log("Updated companies list:", updated); // Debug log
         return updated;
       });
-      
-      toast.success("Yeni kampaniya əlavə olundu.");
-      
+
       // Refresh data to make sure we have the latest
       await fetchDatas();
-      
     } catch (err) {
       console.log("Create error:", err);
       toast.error("Əlavə edilərkən xəta baş verdi.");
@@ -81,7 +78,7 @@ function Companies() {
   };
 
   const handleEditClick = (company: Company) => {
-    openEditModal(company); 
+    openEditModal(company);
   };
 
   const handleEditSubmit = async (updated: Company) => {
@@ -89,8 +86,8 @@ function Companies() {
       const updatedData = await updateCompany(updated.id as number, updated);
       setCompanies((prev) =>
         prev.map((el) =>
-          el.id === (updatedData.data?.id || updatedData.id) 
-            ? (updatedData.data || updatedData) 
+          el.id === (updatedData.data?.id || updatedData.id)
+            ? updatedData.data || updatedData
             : el
         )
       );
@@ -138,20 +135,18 @@ function Companies() {
         isLoading={loading}
         columns={[
           { key: "id", label: "ID" },
+          { key: "img_url", label: "Şəkil" },
           { key: "title", label: "Başlıq" },
           { key: "description", label: "Açıqlama" },
-          { key: "img_url", label: "Şəkil" },
           { key: "created_at", label: "Yaranma Tarixi" },
         ]}
         actions={(row) => (
           <>
-            <button
-              className="mr-3"
-              onClick={() => handleEditClick(row)}
-            >
-              düzəlt
+            <button className="mr-3" onClick={() => handleEditClick(row)}>
+              Düzəlt
             </button>
             <button
+              className="text-red-700"
               onClick={() => openModal(Number(row.id))}
             >
               sil
@@ -159,10 +154,7 @@ function Companies() {
           </>
         )}
         ModalComponent={(props) => (
-          <CompanyModal 
-            {...props} 
-            onSubmit={handleCreate}
-          />
+          <CompanyModal {...props} onSubmit={handleCreate} />
         )}
       />
 

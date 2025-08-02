@@ -17,7 +17,7 @@ function LoginForm() {
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (token) {
-      navigate(ROUTER.COMPANIES);
+      navigate(ROUTER.ORDERS);
     }
   }, [navigate]);
 
@@ -44,7 +44,7 @@ function LoginForm() {
           localStorage.setItem("access_token", token);
           setTimeout(() => {
             toast.success("Giriş uğurlu oldu!");
-            navigate(ROUTER.COMPANIES);
+            navigate(ROUTER.ORDERS);
           }, 1000);
         } else {
           toast.error("Token alınmadı. Giriş uğursuz.");

@@ -81,7 +81,6 @@ function Categories() {
     }
   };
 
-
   const filteredCategories = categories.filter((category) => {
     const query = searchText.toLowerCase();
     return (
@@ -113,17 +112,22 @@ function Categories() {
         isLoading={loading}
         columns={[
           { key: "id", label: "ID" },
+          { key: "img_url", label: "Şəkil" },
           { key: "name", label: "Başlıq" },
           { key: "description", label: "Açıqlama" },
-          { key: "img_url", label: "Şəkil" },
           { key: "created_at", label: "Yaranma Tarixi" },
         ]}
         actions={(row) => (
           <>
             <button className=" mr-3" onClick={() => openEditModal(row)}>
-              düzəlt
+              Düzəlt
             </button>
-            <button onClick={() => openModal(Number(row.id))}>sil</button>
+            <button
+              className="text-red-700"
+              onClick={() => openModal(Number(row.id))}
+            >
+              sil
+            </button>
           </>
         )}
         ModalComponent={(props) => (

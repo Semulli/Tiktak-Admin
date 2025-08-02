@@ -1,3 +1,27 @@
+.custom-spin .ant-spin-dot-item {
+  background-color: #92d871 !important;
+}
+
+/* Aktiv səhifənin rəngi və border-i */
+.custom-pagination .ant-pagination-item-active {
+  border-color: #92d871;
+  /* background-color: #92d871; */
+}
+
+.custom-pagination .ant-pagination-item-active a {
+  color: #000;
+}
+
+/* Hover effekti */
+.custom-pagination .ant-pagination-item:hover {
+  border-color: #92d871;
+}
 
 
 
+/* Prev / Next düymələrinin hover effekti */
+.custom-pagination .ant-pagination-prev:hover .ant-pagination-item-link,
+.custom-pagination .ant-pagination-next:hover .ant-pagination-item-link {
+  border-color: #92d871;
+  color: #92d871;
+}
