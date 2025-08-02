@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { Spin } from "antd";
 import styles from "./login.module.css";
 import LoginForm from "../../components/common/loginForm";
