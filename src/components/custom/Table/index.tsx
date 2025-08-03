@@ -24,6 +24,14 @@ interface TableColumn {
   key: string;
   label: string;
 }
+interface OrderLike {
+  id?: number;
+  orderNumber?: string;
+  paymentMethod?: string;
+  deliveryFee?: string | number;
+  total?: string | number;
+  status?: OrderStatus;
+}
 
 interface TableProps<T> {
   title?: string;
@@ -35,7 +43,7 @@ interface TableProps<T> {
   isLoading?: boolean;
 }
 
-function Table<T extends { id?: number }>({
+function Table<T extends OrderLike>({
   title,
   data = [],
   actions,
@@ -76,8 +84,8 @@ function Table<T extends { id?: number }>({
         if (col.key === "img_url") {
           return (
             <Image
-              width={20}
-              height={20}
+              width={30}
+              height={25}
               src={String(row[col.key as keyof T])}
             />
           );
@@ -90,21 +98,38 @@ function Table<T extends { id?: number }>({
         ) {
           return String(value).slice(0, 10);
         }
-
+        if (col.key === "paymentMethod") {
+          const paymentMethodLabels: Record<string, string> = {
+            card: "kartla",
+            cash: "nağd",
+          };
+          return (
+            paymentMethodLabels[String(value).toLowerCase()] ??
+            String(value).toLowerCase()
+          );
+        }
         if (col.key === "deliveryFee") {
           return value === "0.00" ? "pulsuz" : `${value} ₼`;
+        }
+        if (col.key === "paymentAndDelivery") {
+          const paymentMethodLabels: Record<string, string> = {
+            card: "kartla",
+            cash: "nağd",
+          };
+
+          const paymentText =
+            paymentMethodLabels[String(row.paymentMethod)?.toLowerCase()] ??
+            String(row.paymentMethod).toLowerCase();
+
+          const deliveryFee = String(row.deliveryFee);
+          const deliveryText =
+            deliveryFee === "0.00" ? "pulsuz" : `${deliveryFee} ₼`;
+
+          return `${paymentText} / ${deliveryText}`;
         }
 
         if (col.key === "total") {
           return `${value} ₼`;
-        }
-
-        if (col.key === "paymentMethod") {
-          const paymentMethodLabels: Record<string, string> = {
-            card: "Kartla",
-            cash: "Nağd",
-          };
-          return paymentMethodLabels[String(value as string)] || String(value);
         }
 
         if (col.key === "status") {
@@ -208,7 +233,7 @@ function Table<T extends { id?: number }>({
               minHeight: 340,
             }}
           >
-            <Spin size="large" className="custom-spin"  />
+            <Spin size="large" className="custom-spin" />
           </div>
         ) : (
           <>

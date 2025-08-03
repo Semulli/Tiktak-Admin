@@ -19,8 +19,8 @@ import { useSearchStore } from "../../store/SearchStore";
 
 function Companies() {
   const navigate = useNavigate();
-  const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(false);
+  const [companies, setCompanies] = useState<Company[]>([]);
   const { isOpen, selectedId, openModal, closeModal } = useDeleteModal();
   const { text: searchText } = useSearchStore();
 
@@ -34,11 +34,10 @@ function Companies() {
   const fetchDatas = async () => {
     try {
       setLoading(true);
-      const data = await fetchCompanies();
-      console.log("Fetched companies:", data); // Debug log
-      setCompanies(data.data || data); // Handle both data.data and direct data
+      const res = await fetchCompanies();
+      setCompanies(res.data || res);
     } catch (error) {
-      console.log("Fetch error:", error);
+      console.log(error);
       toast.error("Kampaniyalar yüklənərkən xəta baş verdi.");
     } finally {
       setLoading(false);
@@ -47,38 +46,19 @@ function Companies() {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    if (!token) {
-      navigate(ROUTER.LOGIN);
-    }
-    fetchDatas();
+    if (!token) navigate(ROUTER.LOGIN);
+    else fetchDatas();
   }, [navigate]);
 
   const handleCreate = async (newData: Company) => {
     try {
-      console.log("Creating company with data:", newData); // Debug log
       const created = await createCompanies(newData);
-      console.log("Created company response:", created); // Debug log
-
-      // Handle different response structures
-      const newCompany = created.data || created;
-
-      setCompanies((prev) => {
-        const updated = [newCompany, ...prev];
-        console.log("Updated companies list:", updated); // Debug log
-        return updated;
-      });
-
-      // Refresh data to make sure we have the latest
-      await fetchDatas();
+      setCompanies((prev) => [created.data || created, ...prev]);
+      // toast.success("Yeni kampaniya əlavə olundu.");
     } catch (err) {
-      console.log("Create error:", err);
+      console.log(err);
       toast.error("Əlavə edilərkən xəta baş verdi.");
-      throw err; // Re-throw error so modal can handle it
     }
-  };
-
-  const handleEditClick = (company: Company) => {
-    openEditModal(company);
   };
 
   const handleEditSubmit = async (updated: Company) => {
@@ -100,17 +80,16 @@ function Companies() {
     }
   };
 
-  const filteredCompany = companies.filter((company) => {
-    const query = searchText.toLowerCase();
+  const filteredCompanies = companies.filter((company) => {
+    const q = searchText.toLowerCase();
     return (
-      company.title.toLowerCase().includes(query) ||
-      company.description?.toLowerCase().includes(query)
+      company.title.toLowerCase().includes(q) ||
+      company.description?.toLowerCase().includes(q)
     );
   });
 
   const handleDeleteConfirm = async () => {
     if (!selectedId) return;
-
     try {
       await deleteCompany(selectedId);
       setCompanies((prev) => prev.filter((el) => el.id !== selectedId));
@@ -123,14 +102,11 @@ function Companies() {
     }
   };
 
-  // Debug: Log current companies state
-  console.log("Current companies state:", companies);
-
   return (
     <Layout>
       <Table<Company>
         title="Kampaniyalar"
-        data={filteredCompany}
+        data={filteredCompanies}
         onCreate={handleCreate}
         isLoading={loading}
         columns={[
@@ -142,14 +118,14 @@ function Companies() {
         ]}
         actions={(row) => (
           <>
-            <button className="mr-3" onClick={() => handleEditClick(row)}>
+            <button className="mr-3" onClick={() => openEditModal(row)}>
               Düzəlt
             </button>
             <button
               className="text-red-700"
               onClick={() => openModal(Number(row.id))}
             >
-              sil
+              Sil
             </button>
           </>
         )}

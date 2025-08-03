@@ -50,7 +50,6 @@ function Orders() {
 
   return (
     <Layout>
-      
       <Table
         title="Sifarişlər"
         data={filteredOrders}
@@ -59,8 +58,7 @@ function Orders() {
           { key: "id", label: "ID" },
           { key: "orderNumber", label: "Sifariş Nömrəsi" },
           { key: "total", label: "Cəm Məbləğ" },
-          { key: "deliveryFee", label: "Çatdırılma" },
-          { key: "paymentMethod", label: "Ödəmə Növü" },
+          { key: "paymentAndDelivery", label: "Ödəmə / Çatdırılma" },
           { key: "status", label: "Status" },
         ]}
         actions={(row) => (
@@ -68,7 +66,7 @@ function Orders() {
             className="text-green-500 "
             onClick={() => handleOpenModal(row)}
           >
-            <EyeOutlined />{' '} Detallar
+            <EyeOutlined /> Detallar
           </button>
         )}
       />

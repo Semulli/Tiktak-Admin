@@ -93,7 +93,7 @@ export default function OrderStatsCards({ orders }: Props) {
     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
       <MiniCard
         label="Toplam ₼"
-        value={totalAmount.toFixed(2)}
+        value={totalAmount.toFixed(2)+" ₼"}
         icon={<ShoppingOutlined style={{ fontSize: 14 }} />}
         color="#3f8600"
       />

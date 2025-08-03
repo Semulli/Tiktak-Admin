@@ -97,6 +97,8 @@ const Sidebar = () => {
         background: "#fff",
         height: 445,
         paddingTop: 25,
+          borderRadius:10
+
       }}
     >
       <Menu
