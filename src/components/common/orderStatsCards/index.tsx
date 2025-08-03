@@ -50,8 +50,12 @@ export default function OrderStatsCards({ orders }: Props) {
   );
   const totalCount = orders.length;
 
-
-
+  const statusCounts: Record<IStatus, number> = {
+    [IStatus.PENDING]: 0,
+    [IStatus.CONFIRMED]: 0,
+    [IStatus.DELIVERED]: 0,
+    [IStatus.CANCELLED]: 0,
+  };
   orders.forEach((order) => {
     const status = order.status as IStatus;
     if (statusCounts[status] !== undefined) {
